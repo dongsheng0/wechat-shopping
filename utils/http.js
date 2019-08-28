@@ -2,29 +2,37 @@ const baseUrl = 'https://h.roztop.com';
 const app = getApp();
 const loginApi = '/cgi/user/login';
 
-function wxLogin(encryptedData, iv) {
+function wxLogin() {
   return new Promise((resolve, reject) => {
     wx.login({
-      success: function (res) {
-        http({
-          url: loginApi,
-          data: {
-            code: res.code,
-            encryptedData,
-            iv
-          },
-          method: 'post',
-        }).then(res => {
-          let token = res.data.token;
-          if (token == '') {
-            // wx.navigateTo({
-            //   url: '/pages/login/login',
-            // });
-          } else {
-            wx.setStorageSync('token', res.data.token);
-            resolve();
+      success: function (result) {
+        wx.getUserInfo({
+          success: res => {
+            app.globalData.userInfo = res.userInfo
+            http({
+              url: loginApi,
+              data: {
+                code: result.code,
+                encryptedData: res.encryptedData,
+                iv: res.iv
+              },
+              method: 'post',
+            }).then(res => {
+              let token = res.data.web_token;
+              reject(res)
+              if (token == '') {
+                // wx.navigateTo({
+                //   url: '/pages/login/login',
+                // });
+
+              } else {
+                wx.setStorageSync('token', res.data.token);
+                resolve();
+              }
+            });
           }
-        });
+        })
+
       },
       fail: function (err) {
         console.log(err);
@@ -34,39 +42,7 @@ function wxLogin(encryptedData, iv) {
   });
 }
 
-function login(url, data) {
-  // return new Promise((resolve, reject) => {
-  //   let userInfo = wx.getStorageSync('userInfo');
-  //   let userData = {
-  //     wxname: userInfo.nickName,
-  //     photo: userInfo.avatarUrl,
-  //   };
-  //   http({
-  //       url: url,
-  //       data: Object.assign(data, userData),
-  //       method: 'post',
-  //     })
-  //     .then(res => {
-  //       console.log('登录接口成功');
-  //       console.log(res);
-  //       if (res.success) {
-  //         wx.setStorage({
-  //           key: 'token',
-  //           data: res.data.token,
-  //           success: () => {
-  //             resolve(res);
-  //           },
-  //         });
-  //       } else {
-  //         reject(res);
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.log(res);
-  //       reject(error);
-  //     });
-  // });
-}
+
 
 const http = ({
   url = '',
@@ -75,28 +51,30 @@ const http = ({
 } = {}) => {
   return new Promise((resolve, reject) => {
     wx.request({
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
       url: getUrl(url),
       data: data,
       method: method,
       complete: function (res) {},
       success: function (res) {
-        // console.log(res)
-        if (res.data.success) {
+        if (res.data.code == 0) {
           resolve(res.data);
-        } else if (res.statusCode == 401) {
-          // wx.showModal({
-          //   title: '警告',
-          //   content: '没有授权部分功能将无法正常使用',
-          //   showCancel: true,
-          //   cancelText: '取消',
-          //   cancelColor: '#f00',
-          //   confirmText: '去授权',
-          //   success: function (res) {
-          //     if (res.confirm) {
-          //       wx.openSetting();
-          //     }
-          //   }
-          // })
+        } else if (res.data.code == 401) {
+          wx.showModal({
+            title: '警告',
+            content: '没有授权部分功能将无法正常使用',
+            showCancel: true,
+            cancelText: '取消',
+            cancelColor: '#f00',
+            confirmText: '去授权',
+            success: function (res) {
+              if (res.confirm) {
+                wx.openSetting();
+              }
+            }
+          })
         } else {
           wx.showToast({
             title: res.data.msg,
@@ -161,6 +139,5 @@ module.exports = {
       method,
     });
   },
-  login: login,
   wxLogin: wxLogin,
 };

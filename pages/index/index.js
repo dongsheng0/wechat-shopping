@@ -32,34 +32,20 @@ Page({
       }
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
+      // wx.getUserInfo({
+      //   success: res => {
+      //     app.globalData.userInfo = res.userInfo
+      //     this.setData({
+      //       userInfo: res.userInfo,
+      //       hasUserInfo: true
+      //     })
+      //   }
+      // })
     }
   },
   getUserInfo: function (e) {
-    let self = this;
-    console.log('wx.getUserInfo')
-    console.log(e)
-    wx.getUserInfo({
-      success: res => {
-        let {
-          encryptedData,
-          iv
-        } = {
-          ...res
-        }
-        http.wxLogin(encryptedData, iv).then(res => {
-
-        })
-      }
+    http.wxLogin().then(res => {
+      console.log('登录成功');
     })
-
   }
 })
