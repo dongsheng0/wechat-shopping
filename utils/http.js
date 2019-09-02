@@ -8,7 +8,7 @@ function wxLogin() {
       success: function (result) {
         wx.getUserInfo({
           success: res => {
-            app.globalData.userInfo = res.userInfo
+            // app.globalData.userInfo = res.userInfo
             http({
               url: loginApi,
               data: {
@@ -18,15 +18,15 @@ function wxLogin() {
               },
               method: 'post',
             }).then(res => {
-              let token = res.data.web_token;
+              let webToken = res.rs.webToken;
               reject(res)
-              if (token == '') {
+              if (webToken == '') {
                 // wx.navigateTo({
                 //   url: '/pages/login/login',
                 // });
-
               } else {
-                wx.setStorageSync('token', res.data.token);
+                wx.setStorageSync('webToken', webToken);
+                console.log('登录成功');
                 resolve();
               }
             });
@@ -90,7 +90,7 @@ const http = ({
         errMsg
       }) {
         wx.showToast({
-          title: '网络又异常',
+          title: '网络异常',
           icon: 'error',
           mask: true,
           duration: 2000,

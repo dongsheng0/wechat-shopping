@@ -1,13 +1,14 @@
-<!--index.wxml-->
+<!-- index.wxml
 <view class="container">
   <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+   
     </block>
   </view>
-  <view class="usermotto">
-    <button  open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-  </view>
+ 
+</view> -->
+<view>    
+  <web-view src="{{webSrc}}"></web-view>    
+  <!-- encodeURIComponent   -->
+  <!-- <web-view src='http://10.29.33.22:2000/#/city#wechat_redirect'></web-view>     -->
 </view>
