@@ -5,17 +5,30 @@ App({
 
   },
   onLaunch: function () {
-
-    wx.checkSession({ // 判断是否过期
-      success: function () {
-        //存在登陆态
-        let webToken = wx.getStorageSync('webToken', webToken)
-        if (!webToken) http.wxLogin()
-      },
-      fail: function () {
-        http.wxLogin()
+    wx.getSetting({
+      success(res) {        
+        if (JSON.stringify(res.authSetting) == "{}" || !res.authSetting['scope.userInfo']) {
+          wx.authorize({
+            scope: 'scope.userInfo',
+            success() {
+              wx.checkSession({ // 判断是否过期
+                success: function () {
+                  //存在登陆态
+                  let webToken = wx.getStorageSync('webToken', webToken)
+                  if (webToken == '') {
+                    http.wxLogin()
+                  }
+                },
+                fail: function () {
+                  http.wxLogin()
+                }
+              })
+            }
+          })
+        }
       }
     })
+    
     // 获取用户信息
     // wx.getSetting({
     //   success: res => {
