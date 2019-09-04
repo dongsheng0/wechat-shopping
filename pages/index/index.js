@@ -3,15 +3,16 @@
 // app.globalData.userInfo
 const app = getApp()
 const http = require('../../utils/http.js')
+cost webHost = 'http://192.168.43.101:2000'
 Page({
   data: {
-    webSrc: 'http://192.168.1.8:2000/#/home'
+    webSrc: ''
   },
   onLoad: function () {
-    // let webToken = wx.getStorageSync('webToken', webToken);
-    let webToken2 = '22222222222222'
-    this.setData({
-      webSrc: `http://192.168.1.8:2000/#/home?webToken=${webToken2}`
-    })
+     let webToken = wx.getStorageSync('webToken');
+      let userid = wx.getStorageSync('userid');
+      this.setData({
+        webSrc: `${webHost}/#/home?webToken=${webToken}&userid=${userid}`
+      })
   }
 })

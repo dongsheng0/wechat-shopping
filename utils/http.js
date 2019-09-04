@@ -4,10 +4,13 @@ const loginApi = '/cgi/user/login';
 
 function wxLogin() {
   return new Promise((resolve, reject) => {
+    console.log('wx.login接口前')
     wx.login({
       success: function (result) {
+        console.log('wx.login接口成功')
         wx.getUserInfo({
           success: res => {
+            console.log(' wx.getUserInfo成功')
             // app.globalData.userInfo = res.userInfo
             http({
               url: loginApi,
@@ -18,16 +21,18 @@ function wxLogin() {
               },
               method: 'post',
             }).then(res => {
-              let webToken = res.rs.webToken;
-              reject(res)
+              let { webToken, userid} = res.rs;
               if (webToken == '') {
-                // wx.navigateTo({
-                //   url: '/pages/login/login',
-                // });
+                wx.showToast({
+                  title: res.msg
+                });
               } else {
                 wx.setStorageSync('webToken', webToken);
+                wx.setStorageSync('userid', userid);
                 console.log('登录成功');
-                resolve();
+                wx.navigateTo({
+                  url: '/pages/index/index',
+                });
               }
             });
           }
