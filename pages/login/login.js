@@ -17,9 +17,7 @@ Page({
           success: function () {
             console.log('//存在登陆态')
             let webToken = wx.getStorageSync('webToken', webToken)
-            if (webToken == '') {
-              http.wxLogin()
-            }
+            http.wxLogin()
           },
           fail: function () {
             console.log('//无登陆态')

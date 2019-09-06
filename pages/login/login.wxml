@@ -1,5 +1,5 @@
 <!--pages/login/login.wxml-->
 <text>pages/login/login.wxml</text>
 <view>
-<button open-type="getUserInfo" bindtap="login" type="primary">登录</button>
+<button class='bottom' type='primary' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="login">登录</button>
 </view>
