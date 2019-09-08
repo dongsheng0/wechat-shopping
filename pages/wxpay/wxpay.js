@@ -13,28 +13,34 @@ Page({
    */
   onLoad: function (options) {
     console.log(options)
-    let orderNo = options.orderNo
+    let orderNo = decodeURIComponent(options.orderNo)
     let that = this;
     wx.requestPayment({
-      timeStamp: options.timestamp,
-      nonceStr: options.nonceStr,
-      package: 'prepay_id=' + options.package,
-      signType: options.signType,
-      paySign: options.paySign,
+      timeStamp: decodeURIComponent(options.timestamp),
+      nonceStr: decodeURIComponent(options.nonceStr),
+      package: 'prepay_id=' + decodeURIComponent(options.package),
+      signType: decodeURIComponent(options.signType),
+      paySign: decodeURIComponent(options.paySign),
       success: function (res) {
+        wx.showToast({
+          title: '微信接口支付成功'+res
+        });
         console.log(res)
-        console.log('支付成功');
-        alert('支付成功')
+        console.log('支付成功')
         var pages = getCurrentPages();
         //当前页面
         var currpage = pages[pages.length - 1]
         var prevpage = pages[pages.length - 2]
-        prevpage.setData({
-          web_src: 'https://xxxxx/?orderNo=' + orderNo //赋值会自动跳转到当前页面，你就可以在前端H5页面中通过url参数接收，然后判断是否支付成功后的操作
-        })
+        // prevpage.setData({
+        //   web_src: 'https://xxxxx/?orderNo=' + orderNo 
+        //   //赋值会自动跳转到当前页面，你就可以在前端H5页面中通过url参数接收，然后判断是否支付成功后的操作
+        // })
         wx.navigateBack();
       },
       fail: function (res) {
+        wx.showToast({
+          title: '微信接口支付失败' + res
+        });
         var pages = getCurrentPages(); //获取你页数集  
         console.log(pages) //打印一下自己看一下
         // //当前页面
@@ -45,6 +51,11 @@ Page({
         // })
         wx.navigateBack();
       },
+      complete: function (res) {
+        wx.showToast({
+          title: '微信接口支付complete返回函数' + res
+        });
+      }
     })
   },
 
