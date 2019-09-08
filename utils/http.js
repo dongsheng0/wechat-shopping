@@ -35,6 +35,11 @@ function wxLogin() {
                 });
               }
             });
+          },
+          fail: res=> {
+            wx.navigateTo({
+              url: '/pages/login/login',
+            });
           }
         })
 

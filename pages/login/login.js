@@ -1,46 +1,26 @@
 const http = require('../../utils/http.js')
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-
+    isAuthorize: false
   },
-  login() {
-    console.log('authorize前')
-    wx.authorize({
-      scope: 'scope.userInfo',
-      success(e) {
-        console.log('authorize成功')
-        wx.checkSession({ // 判断是否过期
-          success: function () {
-            console.log('//存在登陆态')
-            let webToken = wx.getStorageSync('webToken', webToken)
-            http.wxLogin()
-          },
-          fail: function () {
-            console.log('//无登陆态')
-            http.wxLogin()
-          }
-        })
-      },
-      fail(e) {
-        console.log('authorize fail')
-        console.log(e)
-      },
-      complete(e) {
-        console.log('authorize component')
-        console.log(e)
-      }
-    })
+  //绑定授权按钮
+  bindGetUserInfo: function (res) {
+    if (res.detail.userInfo) {
+      // console.log('用户点击了授权按钮')
+      http.wxLogin()
+    } else {
+      console.log('用户点击了取消按钮')
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
 
   /**

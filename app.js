@@ -1,16 +1,20 @@
 //app.js
 const http = require('./utils/http.js')
+
 App({
-  userLogin() {
+
+  onLaunch: function (options) {
+    http.wxLogin()
+    // this.authorize(); 
+    // 直接授权登录（options.query 参数与分享配置有关，后续文章介绍）
 
   },
-  onLaunch: function () {
-   
-  },
-  globalData: {
+
+   globalData: {
     userInfo: null,
     appid: '', //
     secret: '', //
     webToken: ''
   },
-});
+})
+
