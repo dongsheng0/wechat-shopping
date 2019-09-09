@@ -23,7 +23,7 @@ Page({
       paySign: decodeURIComponent(options.paySign),
       success: function (res) {
         wx.showToast({
-          title: '微信接口支付成功'+res
+          title: '微信支付成功1000'
         });
         console.log(res)
         console.log('支付成功')
@@ -39,7 +39,7 @@ Page({
       },
       fail: function (res) {
         wx.showToast({
-          title: '微信接口支付失败' + res
+          title: '微信接口支付失败1000'
         });
         var pages = getCurrentPages(); //获取你页数集  
         console.log(pages) //打印一下自己看一下
@@ -53,7 +53,7 @@ Page({
       },
       complete: function (res) {
         wx.showToast({
-          title: '微信接口支付complete返回函数' + res
+          title: '微信接口支付'
         });
       }
     })
