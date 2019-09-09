@@ -11,7 +11,7 @@ function wxLogin() {
         wx.getUserInfo({
           success: res => {
             console.log(' wx.getUserInfo成功')
-            // app.globalData.userInfo = res.userInfo
+            wx.setStorageSync('userInfo', res.userInfo);
             http({
               url: loginApi,
               data: {
@@ -21,7 +21,10 @@ function wxLogin() {
               },
               method: 'post',
             }).then(res => {
-              let { webToken, userid} = res.rs;
+              let {
+                webToken,
+                userid
+              } = res.rs;
               if (webToken == '') {
                 wx.showToast({
                   title: res.msg
@@ -34,11 +37,6 @@ function wxLogin() {
                   url: '/pages/index/index',
                 });
               }
-            });
-          },
-          fail: res=> {
-            wx.navigateTo({
-              url: '/pages/login/login',
             });
           }
         })
