@@ -5,7 +5,7 @@ const http = require('../../utils/http.js')
 const webHost =
   Page({
     data: {
-      webSrc: ''
+      webSrc: 'https://h.roztop.com/pages'
     },
     onShow() {
       // let webToken = wx.getStorageSync('webToken');
