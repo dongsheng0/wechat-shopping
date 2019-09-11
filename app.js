@@ -11,9 +11,10 @@ App({
   },
   // const webHost = '';
    globalData: {
-    webHost: 'http://localhost:2000/#/home',
-    backH5url: '', // 跳回h5的地址
+    h5url: '', // web-view使用的h5地址
+    webHost: 'http://localhost:2000',
     // webHost: 'https://h.roztop.com/pages',
+    backH5hash: '', // 跳回h5的地址
     userInfo: null,
     appid: '', //
     secret: '', //

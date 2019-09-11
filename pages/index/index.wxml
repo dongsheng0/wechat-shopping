@@ -8,6 +8,6 @@
  
 </view> -->
 <view>    
-  <web-view src="{{webSrc}}"></web-view>    
+  <web-view src="http://localhost:2000/#/home"></web-view>    
   <!-- encodeURIComponent   -->
 </view>
