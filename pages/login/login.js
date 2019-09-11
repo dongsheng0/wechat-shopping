@@ -16,6 +16,17 @@ Page({
     }
   },
 
+    tap() {
+      var pages = getCurrentPages();
+        //当前页面
+        var currpage = pages[pages.length - 1]
+        var prevpage = pages[pages.length - 2]
+        prevpage.setData({
+          web_src: 'http://10.29.33.127:2000#/goods/order/1'
+          //赋值会自动跳转到当前页面，你就可以在前端H5页面中通过url参数接收，然后判断是否支付成功后的操作
+        })
+        wx.navigateBack();
+    },
   /**
    * 生命周期函数--监听页面加载
    */
