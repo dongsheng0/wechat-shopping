@@ -1,8 +1,7 @@
 const baseUrl = 'https://h.roztop.com';
 const app = getApp();
 const loginApi = '/cgi/user/login';
-
-function wxLogin() {
+function wxLogin(backH5Url) {
   return new Promise((resolve, reject) => {
     console.log('wx.login接口前')
     wx.login({
@@ -20,24 +19,28 @@ function wxLogin() {
                 iv: res.iv
               },
               method: 'post',
-            }).then(res => {
+            }).then(r => {
               let {
                 webToken,
                 userid
-              } = res.rs;
+              } = r.rs;
               if (webToken == '') {
                 wx.showToast({
-                  title: res.msg
+                  title: r.msg
                 });
               } else {
+                // 登录成功只是保存token
                 wx.setStorageSync('webToken', webToken);
                 wx.setStorageSync('userid', userid);
-                console.log('登录成功');
-                wx.navigateTo({
-                  url: '/pages/index/index',
-                });
+                console.log('熊++登录成功');
+                resolve(r)
               }
             });
+          },
+          fail: err => {
+            wx.redirectTo({
+              url: '/pages/login/login'
+            })
           }
         })
 

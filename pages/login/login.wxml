@@ -1,3 +1,6 @@
 
-<button  wx:if="{{isAuthorize}}" open-type='getUserInfo' type="primary" bindgetuserinfo='bindGetUserInfo'>授权登录</button>
-<button  wx:else type="primary" bindtap='bindlogin'>登录</button>
+<view>
+
+</view>
+<button wx:if="{{isAuthorize}}"  type="primary" bindtap='bindlogin'>登录</button>
+<button  wx:else  open-type='getUserInfo' type="primary" bindgetuserinfo='bindGetUserInfo'>登录</button>

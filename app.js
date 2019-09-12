@@ -1,13 +1,18 @@
 //app.js
 const http = require('./utils/http.js')
-
+import {setH5url} from  './utils/util'
 App({
 
   onLaunch: function (options) {
-    http.wxLogin()
+    let that = this
+    http.wxLogin().then(res => {
+      that.globalData.h5url = setH5url()
+      wx.redirectTo({
+        url: '/pages/index/index',
+      });
+    })
+    console.log('app.js页面加载的');
     // this.authorize(); 
-    // 直接授权登录（options.query 参数与分享配置有关，后续文章介绍）
-
   },
   // const webHost = '';
    globalData: {

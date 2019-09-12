@@ -1,13 +1,3 @@
-<!-- index.wxml
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-   
-    </block>
-  </view>
- 
-</view> -->
 <view>    
-  <web-view src="http://localhost:2000/#/home"></web-view>    
-  <!-- encodeURIComponent   -->
+  <web-view src="{{h5url}}"></web-view>    
 </view>

@@ -1,4 +1,3 @@
-const app = getApp()
 
 const formatTime = date => {
   const year = date.getFullYear()
@@ -14,18 +13,22 @@ const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
-const setH5url = (backH5hash= '') => {
+const setH5url = (backH5hash= '/home') => {
   // 获取用户信息
   let webToken = wx.getStorageSync('webToken');
   let userid = wx.getStorageSync('userid');
   let userInfo = wx.getStorageSync('userInfo');
-  let webHost = app.globalData.webHost
   let {
     nickName,
     avatarUrl
   } = userInfo
-  app.globalData.h5url = `${webHost}/#/home?webToken=${webToken}&userid=${userid}&nickName=${encodeURIComponent(nickName)}&avatarUrl=${encodeURIComponent(avatarUrl)}&backH5hash=${backH5hash}`
-  return app.globalData.h5url
+  let h5url = ''
+  if (backH5hash.indexOf('?') != -1){
+    h5url = `/#${backH5hash}webToken=${webToken}&userid=${userid}&nickName=${encodeURIComponent(nickName)}&avatarUrl=${encodeURIComponent(avatarUrl)}`
+  } else {
+    h5url = `/#${backH5hash}?webToken=${webToken}&userid=${userid}&nickName=${encodeURIComponent(nickName)}&avatarUrl=${encodeURIComponent(avatarUrl)}`
+  }
+  return h5url
 }
 module.exports = {
   formatTime,

@@ -1,24 +1,15 @@
-//index.js
-// app.globalData.userInfo
 const app = getApp()
 const http = require('../../utils/http.js')
-const webHost =
+let host = app.globalData.webHost
+
+import {setH5url} from './../../utils/util'
   Page({
     data: {
-      webSrc: this.globalData.webSrc
+      h5url: `${host}${app.globalData.h5url}`
     },
     initPage() {
-      let webToken = wx.getStorageSync('webToken');
-      let userid = wx.getStorageSync('userid');
-      let userInfo = wx.getStorageSync('userInfo');
-      let {
-        nickName,
-        avatarUrl
-      } = userInfo
-      this.webSrc = this.globalData.webSrc;
-      // const webHost = 'https://h.roztop.com/pages';
       this.setData({
-        webSrc: `${webHost}/#/home?webToken=${webToken}&userid=${userid}&nickName=${encodeURIComponent(nickName)}&avatarUrl=${encodeURIComponent(avatarUrl)}`
+        h5url: `${host}${app.globalData.h5url}`
       })
     },
     onShow() {

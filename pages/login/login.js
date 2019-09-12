@@ -1,49 +1,62 @@
 const http = require('../../utils/http.js')
 import { setH5url } from '../../utils/util'
+var app = getApp();
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    isAuthorize: false
+    isAuthorize: false,
+    backH5hash: ''
   },
   //绑定授权按钮
   bindGetUserInfo: function (res) {
+    let that = this
     if (res.detail.userInfo) {
       // console.log('用户点击了授权按钮')
       wx.setStorage({
         key: 'can_getuserinfo',
         data: 1,
       })
-      http.wxLogin()
+      http.wxLogin().then(res => {
+        // 根据h5跳转的来源 登录完害的返回到原来的页面 ， 但是得把token更新
+        app.globalData.h5url = setH5url(that.data.backH5hash)
+        wx.redirectTo({
+          url: '/pages/index/index',
+        });
+      })
     } else {
       wx.setStorage({
         key: 'can_getuserinfo',
         data: 0,
       })
-      console.log('用户点击了取消按钮')
+      wx.showToast({
+        title: '请授权登录'
+      });
     }
   },
-
+  // 已经授权登录
   bindlogin() {
-      var pages = getCurrentPages();
-      //当前页面
-      var currpage = pages[pages.length - 1]
-      var prevpage = pages[pages.length - 2]
-      // prevpage.setData({
-      //   web_src: 'http://10.29.33.127:2000#/goods/order/1'
-      //   //赋值会自动跳转到当前页面，你就可以在前端H5页面中通过url参数接收，然后判断是否支付成功后的操作
-      // })
-      setH5url()
-      wx.navigateBack();
+      // var pages = getCurrentPages();
+      // //当前页面
+      // var currpage = pages[pages.length - 1]
+      // var prevpage = pages[pages.length - 2]
+      // wx.navigateBack();
+      let that = this
+      http.wxLogin().then(res => {
+        // 重新获取token
+        app.globalData.h5url = setH5url(that.data.backH5hash)
+        wx.navigateBack();
+      })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('参数');
-    console.log(options);
-    
+    this.setData({
+      backH5hash: options.backH5hash
+    })
+    let that = this
     // 第一种方式是从getStorage中获取授权状态
     // wx.getStorage({
     //   key: ‘can_getuserinfo‘,
