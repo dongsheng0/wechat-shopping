@@ -1,6 +1,7 @@
-const baseUrl = 'https://h.roztop.com';
+const baseUrl = 'https://www.xiongjiajia.com';
 const app = getApp();
 const loginApi = '/cgi/user/login';
+
 function wxLogin(backH5Url) {
   return new Promise((resolve, reject) => {
     console.log('wx.login接口前')

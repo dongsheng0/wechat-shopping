@@ -1,1 +1,20 @@
 /* pages/login/login.wxss */
+.container {}
+
+.userinfo {
+  text-align: center;
+}
+
+.image {
+  width: 100px;
+  height: 100px;
+  margin: 12px;
+}
+
+.name {
+  margin: 12px;
+}
+
+.cancel {
+  margin-bottom: 10px;
+}

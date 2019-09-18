@@ -1,5 +1,7 @@
 const http = require('../../utils/http.js')
-import { setH5url } from '../../utils/util'
+import {
+  setH5url
+} from '../../utils/util'
 var app = getApp();
 Page({
   /**
@@ -35,19 +37,22 @@ Page({
       });
     }
   },
+  bindCancel() {
+    wx.navigateBack();
+  },
   // 已经授权登录
   bindlogin() {
-      // var pages = getCurrentPages();
-      // //当前页面
-      // var currpage = pages[pages.length - 1]
-      // var prevpage = pages[pages.length - 2]
-      // wx.navigateBack();
-      let that = this
-      http.wxLogin().then(res => {
-        // 重新获取token
-        app.globalData.h5url = setH5url(that.data.backH5hash)
-        wx.navigateBack();
-      })
+    // var pages = getCurrentPages();
+    // //当前页面
+    // var currpage = pages[pages.length - 1]
+    // var prevpage = pages[pages.length - 2]
+    // wx.navigateBack();
+    let that = this
+    http.wxLogin().then(res => {
+      // 重新获取token
+      app.globalData.h5url = setH5url(that.data.backH5hash)
+      wx.navigateBack();
+    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -72,17 +77,17 @@ Page({
     // })
     // 第二种方式是从getSetting中获取授权状态
     wx.getSetting({
-        success: (res) => {
-          if (res.authSetting['scope.userInfo']){ // 已经授权
-            that.setData({
-              isAuthorize: true
-            })
-          } else  {
-            that.setData({
-              isAuthorize: false
-            })
-          }
+      success: (res) => {
+        if (res.authSetting['scope.userInfo']) { // 已经授权
+          that.setData({
+            isAuthorize: true
+          })
+        } else {
+          that.setData({
+            isAuthorize: false
+          })
         }
+      }
     })
   },
 
