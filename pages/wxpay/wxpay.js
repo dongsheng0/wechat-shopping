@@ -1,4 +1,7 @@
 // pages/wxpay/wxpay.js
+import {
+  setH5url
+} from '../../utils/util'
 Page({
 
   /**
@@ -31,10 +34,10 @@ Page({
         //当前页面
         var currpage = pages[pages.length - 1]
         var prevpage = pages[pages.length - 2]
-        // prevpage.setData({
-        //   web_src: 'https://xxxxx/?orderNo=' + orderNo 
-        //   //赋值会自动跳转到当前页面，你就可以在前端H5页面中通过url参数接收，然后判断是否支付成功后的操作
-        // })
+        app.globalData.h5url = setH5url(`/user/order/${orderNo}`)
+        wx.redirectTo({
+          url: '/pages/index/index',
+        });
         wx.navigateBack();
       },
       fail: function (res) {
