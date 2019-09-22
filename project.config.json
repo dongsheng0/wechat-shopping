@@ -6,6 +6,7 @@
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
+		"enhance": false,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
@@ -69,6 +70,13 @@
 					"name": "pages/login/login",
 					"pathName": "pages/login/login",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/share/share",
+					"pathName": "pages/share/share",
+					"query": "type=0&id=1",
 					"scene": null
 				}
 			]

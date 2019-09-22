@@ -1,0 +1,38 @@
+<view class="page">
+  <scroll-view scroll-x>
+    <view>
+      <checkbox-group bindchange="checkboxChange" class="scroll-box">
+        <label wx:for="{{details.pics}}">
+          <checkbox value="{{item}}" class="checkbox-pics"></checkbox>
+          <painter palette="{{template[index]}}" bind:imgOK="onImgOK" />
+        </label>
+      </checkbox-group>
+    </view>
+  </scroll-view>
+  <view class="share-block">
+    <button bind:tap='share' class="share-img btn img" open-type="share">
+      <image src="../../img/share_img.png" />
+      <text>分享海报</text>
+    </button>
+    <button bind:tap='saveImage' class="share-img btn">
+      <image src="../../img/save.png" />
+      <text>保存图片</text>
+    </button>
+  </view>
+  <view class="copy-content">
+    <black class="spread_desc">
+      {{details.spread_desc}}
+    </black>
+    <button bind:tap='copy' class="btn copy">复制内容</button>
+  </view>
+  <view class="share-block fix-bottom">
+    <button bind:tap='share' class="share_link">
+      <image src="../../img/share_link.png" />
+      <text>分享链接</text>
+    </button>
+    <button bind:tap='saveImage' class="share_link">
+      <image src="../../img/share_xcx.png" />
+      <text>分享小程序</text>
+    </button>
+  </view>
+</view>

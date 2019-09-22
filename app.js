@@ -1,12 +1,10 @@
 //app.js
-const http = require('./utils/http.js')
-import {
-  setH5url
-} from './utils/util'
+const http = require('./utils/http.js');
+import {setH5url} from './utils/util';
 App({
-  onLaunch: function (options) {
+  onLaunch: function(options) {
     console.log('app.js页面加载的');
-    // this.authorize(); 
+    // this.authorize();
   },
   // const webHost = '';
   globalData: {
@@ -17,6 +15,6 @@ App({
     userInfo: null,
     appid: '', //
     secret: '', //
-    webToken: ''
+    webToken: '',
   },
-})
+});

@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/login/login",
     "pages/detail/detail",
+    "pages/share/share",
     "pages/wxpay/wxpay"
   ],
   "window": {

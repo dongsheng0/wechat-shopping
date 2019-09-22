@@ -11,7 +11,6 @@ function wxLogin(backH5Url) {
         wx.getUserInfo({
           success: res => {
             console.log(' wx.getUserInfo成功')
-            wx.setStorageSync('userInfo', res.userInfo);
             http({
               url: loginApi,
               data: {
@@ -30,6 +29,8 @@ function wxLogin(backH5Url) {
                   title: r.msg
                 });
               } else {
+                // 只有登录成功后才把所有信息加到本地
+                wx.setStorageSync('userInfo', res.userInfo);
                 // 登录成功只是保存token
                 wx.setStorageSync('webToken', webToken);
                 wx.setStorageSync('userid', userid);
@@ -63,9 +64,7 @@ const http = ({
 } = {}) => {
   return new Promise((resolve, reject) => {
     wx.request({
-      header: {
-        'content-type': 'application/x-www-form-urlencoded',
-      },
+      header: getHeader(),
       url: getUrl(url),
       data: data,
       method: method,
@@ -122,18 +121,21 @@ const getUrl = url => {
 
 const getHeader = () => {
   let headers = {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
+    'content-type': 'application/x-www-form-urlencoded'
   };
   try {
-    let token = wx.getStorageSync('token');
-    if (token.length > 0) {
-      headers.Authorization = 'Bearer ' + token;
-      return headers;
+    let webToken = wx.getStorageSync('webToken');
+    let userid = wx.getStorageSync('userid');
+    let  temp = {
+      userid,
+      webToken,
+    };
+    if (webToken.length > 0) {
+      return {...headers, ...temp}
     }
     return headers;
   } catch (e) {
-    return {};
+    return headers;
   }
 };
 
