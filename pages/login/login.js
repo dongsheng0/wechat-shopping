@@ -23,9 +23,10 @@ Page({
       http.wxLogin().then(res => {
         // 根据h5跳转的来源 登录完害的返回到原来的页面 ， 但是得把token更新
         app.globalData.h5url = setH5url(that.data.backH5hash)
-        wx.redirectTo({
-          url: '/pages/index/index',
-        });
+        // wx.redirectTo({
+        //   url: '/pages/index/index',
+        // });
+        wx.navigateBack();
       })
     } else {
       wx.setStorage({
@@ -62,20 +63,6 @@ Page({
       backH5hash: options.backH5hash
     })
     let that = this
-    // 第一种方式是从getStorage中获取授权状态
-    // wx.getStorage({
-    //   key: ‘can_getuserinfo‘,
-    //   success: function (res) {
-    //     that.setData({
-    //       can_getuserinfo: res.data
-    //     })
-    //   }, fail: function () {
-    //     that.setData({
-    //       can_getuserinfo: 0
-    //     })
-    //   }
-    // })
-    // 第二种方式是从getSetting中获取授权状态
     wx.getSetting({
       success: (res) => {
         if (res.authSetting['scope.userInfo']) { // 已经授权

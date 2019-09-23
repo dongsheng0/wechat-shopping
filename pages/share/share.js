@@ -27,6 +27,18 @@ Page({
       imageLits: this.data.imageLits.concat(e.detail.path)
     });
   },
+  copy() {
+    wx.setClipboardData({
+      data: this.data.details.spread_desc,
+      success (res) {
+        wx.getClipboardData({
+          success (res) {
+            console.log(res.data) // data
+          }
+        })
+      }
+    })
+  },
   // 保存图片
   saveImage() {
     let that = this
