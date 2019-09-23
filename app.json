@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/login/login",
     "pages/detail/detail",
+    "pages/detail2/detail2",
     "pages/share/share",
     "pages/wxpay/wxpay"
   ],
