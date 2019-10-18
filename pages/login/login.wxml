@@ -3,7 +3,7 @@
 <view class="container">
   <view class="userinfo">
         <image class="image" src="../../img/logo.png" />
-        <view class="name" class="name">熊加加优选</view>
+        <view class="name" class="name">呼啦啦</view>
         <button bindtap='bindCancel' class="cancel">取消</button>
         <button wx:if="{{!isAuthorize}}" open-type='getUserInfo' type="primary" bindgetuserinfo='bindGetUserInfo'>
           授权登录

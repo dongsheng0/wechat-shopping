@@ -13,7 +13,7 @@ App({
     h5url: '', // web-view使用的h5地址
     webHost: 'http://localhost:2000',
     // webHost: 'http://192.168.43.131:2000',
-    // webHost: 'https://www.xiongjiajia.com/pages',
+    // webHost: 'https://www.hulala.com/pages',
     backH5hash: '', // 跳回h5的地址
     userInfo: null,
     appid: '', //

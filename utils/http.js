@@ -1,4 +1,4 @@
-const baseUrl = 'https://www.xiongjiajia.com';
+const baseUrl = 'https://www.hulala.com';
 const app = getApp();
 const loginApi = '/cgi/user/login';
 

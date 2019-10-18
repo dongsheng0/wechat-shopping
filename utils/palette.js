@@ -50,7 +50,7 @@ export default class LastMayday {
         // _des(3, '圆形'),
         {
           type: 'image',
-          url: 'http://img.xiongjiajia.com/scenicSpots/2019-09-11/1568189289943.jpg',
+          url: 'http://img.hulala.com/scenicSpots/2019-09-11/1568189289943.jpg',
           css: {
             bottom: '40rpx',
             left: '40rpx',
@@ -63,7 +63,7 @@ export default class LastMayday {
         },
         {
           type: 'qrcode',
-          content: 'http://img.xiongjiajia.com/code/1/0/1/1569124121681.png',
+          content: 'http://img.hulala.com/code/1/0/1/1569124121681.png',
           css: {
             bottom: '40rpx',
             left: '180rpx',
@@ -102,7 +102,7 @@ function _textDecoration(decoration, index, color) {
 function _image(index, rotate, borderRadius) {
   return ({
     type: 'image',
-    url: 'http://img.xiongjiajia.com/scenicSpots/2019-09-11/1568189289943.jpg',
+    url: 'http://img.hulala.com/scenicSpots/2019-09-11/1568189289943.jpg',
     css: {
       top: `${startTop + 8.5 * gapSize}rpx`,
       left: `${startLeft + 160 * index}rpx`,

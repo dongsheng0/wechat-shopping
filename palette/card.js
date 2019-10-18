@@ -1,7 +1,7 @@
 export default class Cards {
   constructor(data) {
     this.data = data
-    this.title = '熊加加优选'
+    this.title = '呼啦啦'
   }
   palette(index) {
     return ({
